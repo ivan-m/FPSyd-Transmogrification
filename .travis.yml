@@ -1,0 +1,50 @@
+sudo: false
+
+env:
+  global:
+    - INPUT_FILE=Slides.md
+    - OUTPUT_FILE=index.html
+    - GH_REPO=ivan-m/FPSyd-Transmogrification
+    - GH_BRANCH=gh-pages
+    - secure: cGB8XChmJfQDZCODsDu5T5HXbhpnBWnCOIPiOrde5msHQCdEds9SXjIzLP8DaPmKWBcYUnStUbwwaA50oXzlZaiGOxYWw8OWu2bPpzStxnJBwJ1CcAk/KL4DcPsXYzHeZhJTP4DVk2O3fcHo6f3PYeSWeUajUPtNd2kHp/hs4BJw+8x5+zN9U+0KB2xfNv0qgFd2YltKdYNFnRXJ1ztNg5rXw7ksXtmSu8NhwLF1VtHaXCiNQgF1Yt5IblT7IoteLeVu0F716T1t5x6rmZm8Aw9x2YlDUhVtc0kQNLuXNnx3AdJ34kp+PKHgHBrNgwiz2E6eEECiR0v/nANOiU43HfEUtp5s42mko3PdxsrYOS1hu8sPQ9iBXGhS83o7s1KWNhx0cY3JLFPUc7ghReJ72qHaFhLFDpkp46nEcO9O8NgUGVLJ9F6TFstBxHw+ghxC2Vq11RHKkfvaAobve+3iicduz9HLnycTzdWsqSk6u+e7zN1FBtu54v6m7y6tz0hDfZqLgf+kO2SqVC/4zYoIiqGK8tx4wGjc2PNctp77XFia1cYpXuqs2IR33vw8d0h4fcrj3zuOUGE9zWH9mPZnit4PfzrKvu4vU9c+1QBIarfTs4ONB5jXbMV0AZYdc/952zl0YrzRFzamjxOOyCsaa+tb4KAyKkm+5wJIvSKDa3c=
+
+cache:
+  directories:
+    - $HOME/.cabal
+    - $HOME/.ghc
+
+before-cache:
+  # Don't cache the Hackage index
+  - rm -rf $HOME/cabal/packages/hackage.haskell.org
+
+branches:
+  only:
+    - master
+
+addons:
+  apt:
+    sources:
+      - hvr-ghc
+    packages:
+      - cabal-install-1.22
+      - ghc-7.10.1
+
+before_install:
+  - export PATH=$HOME/.cabal/bin:$(printf "%s:" /opt/ghc/*/bin)$(printf "%s:" /opt/cabal/*/bin)$PATH
+  - travis_retry cabal update
+  - travis_retry cabal install -j pandoc
+
+script:
+  - ./runPandoc.hs "${INPUT_FILE}" "${OUTPUT_FILE}"
+
+after_success:
+  - git config --global user.email "Travis CI"
+  - git config --global user.name "travis-ci@travis.org"
+  - git clone --quiet --branch=$GH_BRANCH https://${GH_TOKEN}@github.com/$GH_REPO travis-build > /dev/null
+  - cd travis-build
+  # In case there's more images, etc.
+  - git rebase origin/shared-data
+  - cp ../"${OUTPUT_FILE}" .
+  - git add -f .
+  - git commit -m "Travis build $TRAVIS_BUILD_NUMBER pushed to GitHub Pages"
+  - git push -fq origin $GH_BRANCH > /dev/null
