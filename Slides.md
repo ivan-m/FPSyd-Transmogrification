@@ -48,6 +48,42 @@ The Solution
 
 ## {data-background="images/simples.jpg" data-background-size="auto 100%" data-background-color="white"}
 
+## You can't just _say_ "Simples"...
+
+Notes
+:   * Fine, you got me...
+    * I do have an answer though!
+
+`GHC.Generics`
+==============
+
+## A brief recap
+
+. . .
+
+Everything is either:
+
+> * `K1`  -- An individual field/constructor
+> * `V1`  -- Empty datatypes
+> * `U1`  -- A constructor without fields
+> * `:*:` -- Product types
+> * `:+:` -- Sum types
+> * `M1`  -- Pesky, pesky metadata...
+
+Notes
+:   * After all, they're so awesome that everyone knows and uses them,
+      right?
+    * We can convert instances of `Generic` to and from this
+      representation with ease!
+
+## So, what do we have to do?
+
+> 1. Get everything to derive `Generic`
+> 2. Convert it into it's generic representation
+> 3. Recursively remove any `M1` wrappers present
+> 4. Add in the `M1` wrappers that the other type wants
+> 5. We have achieved...
+
 ---
 # reveal.js settings
 theme: night
