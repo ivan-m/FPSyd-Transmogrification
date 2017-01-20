@@ -84,6 +84,12 @@ Notes
 > 4. Add in the `M1` wrappers that the other type wants
 > 5. We have achieved...
 
+TRANSMOGRIFI-CATION!!! {data-background="images/new.jpg" data-background-size="auto 100%" data-background-color="white"}
+===================
+
+## Example
+
+
 ---
 # reveal.js settings
 theme: night
