@@ -38,6 +38,7 @@ script:
   - ./runPandoc.hs "${INPUT_FILE}" "${OUTPUT_FILE}"
 
 after_success:
+  - if [ "x${GH_TOKEN}" == "x" ]; then echo "NO TOKEN!!!!!"; fi
   - git config --global user.email "Travis CI"
   - git config --global user.name "travis-ci@travis.org"
   - git clone --quiet --branch=$GH_BRANCH https://${GH_TOKEN}@github.com/$GH_REPO travis-build > /dev/null
