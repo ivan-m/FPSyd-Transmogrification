@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Ivan Lazar Miljenovic" />
+  <title>Transmogrify your data!</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css"/>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
+td.sourceCode { padding-left: 5px; }
+pre, code { color: #cccccc; background-color: #303030; }
+code > span.kw { color: #f0dfaf; } /* Keyword */
+code > span.dt { color: #dfdfbf; } /* DataType */
+code > span.dv { color: #dcdccc; } /* DecVal */
+code > span.bn { color: #dca3a3; } /* BaseN */
+code > span.fl { color: #c0bed1; } /* Float */
+code > span.ch { color: #dca3a3; } /* Char */
+code > span.st { color: #cc9393; } /* String */
+code > span.co { color: #7f9f7f; } /* Comment */
+code > span.ot { color: #efef8f; } /* Other */
+code > span.al { color: #ffcfaf; } /* Alert */
+code > span.fu { color: #efef8f; } /* Function */
+code > span.er { color: #c3bf9f; } /* Error */
+code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code > span.sc { color: #dca3a3; } /* SpecialChar */
+code > span.vs { color: #cc9393; } /* VerbatimString */
+code > span.ss { color: #cc9393; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #f0dfaf; } /* ControlFlow */
+code > span.op { color: #f0efd0; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #7f9f7f; } /* Documentation */
+code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/night.css" id="theme">
+  <link rel="stylesheet" href="custom.css"/>
+  <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+  <script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = 'reveal.js/css/print/pdf.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Transmogrify your data!</h1>
+    <h2 class="author">Ivan Lazar Miljenovic</h2>
+    <h3 class="date">25 January, 2017</h3>
+</section>
+
+<section><section id="haskellers-we-have-a-problem" class="titleslide slide level1"><h1>Haskellers, we have a problem!</h1></section><section id="we-think-our-language-is-all-nice-and-theoretical" class="slide level2">
+<h2>We think our language is all nice and theoretical…</h2>
+<ul>
+<li class="fragment">“Look at me, I use category theory!”</li>
+<li class="fragment">“This is all based off of research, not just baseless pragmatism!”</li>
+</ul>
+</section><section id="we-love-our-types" class="slide level2">
+<h2>We love our types!</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Foo</span> <span class="fu">=</span> <span class="dt">Foo</span> <span class="dt">Int</span> <span class="dt">Double</span> <span class="dt">Bool</span>
+
+<span class="co">-- See? So much clearer and safer and stuff!</span></code></pre></div>
+</section><section id="but-this-can-lead-to-a-problem" class="slide level2">
+<h2>But this can lead to a problem…</h2>
+<blockquote>
+<p>“I have a <code>Foo</code>… but this function requires a <code>Bar</code> which is <strong>identical</strong> to a <code>Foo</code> just with a different name…</p>
+</blockquote>
+</section><section id="because-we-forgot-some-theory" class="slide level2">
+<h2>… because we forgot some theory!</h2>
+<blockquote>
+<p>In type theory a product type of two types <code>A</code> and <code>B</code> is the type whose terms are ordered pairs <code>(a,b)</code> with <code>a:A</code> and <code>b:B</code>.</p>
+</blockquote>
+<aside class="notes">
+<ul>
+<li>Similarly for sum types.</li>
+</ul>
+</aside>
+<dl>
+</dl>
+</section><section id="data-definitions-complicate-things" class="slide level2">
+<h2>Data definitions complicate things!</h2>
+<aside class="notes">
+<ul>
+<li>All that extra type information just gets in the way!</li>
+</ul>
+</aside>
+<dl>
+</dl>
+</section></section>
+<section><section id="the-solution" class="titleslide slide level1"><h1>The Solution</h1></section><section id="if-people-continue-to-complicate-matters-by-writing-new-types-everywhere" class="slide level2">
+<h2>If people continue to complicate matters by writing new types everywhere…</h2>
+</section><section id="well-just-have-to-strip-all-that-metadata-out" class="slide level2">
+<h2>We’ll just have to strip all that metadata out!</h2>
+</section><section id="section" class="slide level2" data-background="images/simples.jpg" data-background-size="auto 100%" data-background-color="white">
+<h2></h2>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,         // Display controls in the bottom right corner
+        progress: true,         // Display a presentation progress bar
+        history: true,          // Push each slide change to the browser history
+        zoomKey: 'shift',
+        center: true,                       // Vertical centering of slides
+        maxScale: 1.5,                  // Bounds for smallest/largest possible content scale
+        slideNumber: false,                // Display the page number of the current slide
+        theme: 'night', // available themes are in /css/theme
+        transition: 'concave', // default/cube/page/concave/zoom/linear/fade/none
+        backgroundTransition: 'zoom', // default/none/fade/slide/convex/concave/zoom
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
