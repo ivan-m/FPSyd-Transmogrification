@@ -116,8 +116,52 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 <h2>If people continue to complicate matters by writing new types everywhere…</h2>
 </section><section id="well-just-have-to-strip-all-that-metadata-out" class="slide level2">
 <h2>We’ll just have to strip all that metadata out!</h2>
-</section><section id="section" class="slide level2" data-background="images/simples.jpg" data-background-size="auto 100%" data-background-color="white">
+</section><section id="simples" class="slide level2" data-background="images/simples.jpg" data-background-size="auto 100%" data-background-color="white">
 <h2></h2>
+</section><section id="you-cant-just-say-simples" class="slide level2">
+<h2>You can’t just <em>say</em> “Simples”…</h2>
+<aside class="notes">
+<ul>
+<li>Fine, you got me…</li>
+<li>I do have an answer though!</li>
+</ul>
+</aside>
+<dl>
+</dl>
+</section></section>
+<section><section id="ghc.generics" class="titleslide slide level1"><h1><code>GHC.Generics</code></h1></section><section id="a-brief-recap" class="slide level2">
+<h2>A brief recap</h2>
+<div class="fragment">
+<p>Everything is either:</p>
+<ul>
+<li class="fragment"><code>K1</code> – An individual field/constructor</li>
+<li class="fragment"><code>V1</code> – Empty datatypes</li>
+<li class="fragment"><code>U1</code> – A constructor without fields</li>
+<li class="fragment"><code>:*:</code> – Product types</li>
+<li class="fragment"><code>:+:</code> – Sum types</li>
+<li class="fragment"><code>M1</code> – Pesky, pesky metadata…</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>After all, they’re so awesome that everyone knows and uses them, right?</li>
+<li>We can convert instances of <code>Generic</code> to and from this representation with ease!</li>
+</ul>
+</aside>
+<dl>
+</dl>
+</div>
+</section><section id="so-what-do-we-have-to-do" class="slide level2">
+<h2>So, what do we have to do?</h2>
+<ol type="1">
+<li class="fragment">Get everything to derive <code>Generic</code></li>
+<li class="fragment">Convert it into it’s generic representation</li>
+<li class="fragment">Recursively remove any <code>M1</code> wrappers present</li>
+<li class="fragment">Add in the <code>M1</code> wrappers that the other type wants</li>
+<li class="fragment">We have achieved…</li>
+</ol>
+</section></section>
+<section><section id="transmogrifi-cation" class="titleslide slide level1" data-background="images/new.jpg" data-background-size="auto 100%" data-background-color="white"><h1>TRANSMOGRIFI-CATION!!!</h1></section><section id="example" class="slide level2">
+<h2>Example</h2>
 </section></section>
     </div>
   </div>
