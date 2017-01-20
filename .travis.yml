@@ -6,7 +6,7 @@ env:
     - OUTPUT_FILE=index.html
     - GH_REPO=ivan-m/FPSyd-Transmogrification
     - GH_BRANCH=gh-pages
-    - secure: cGB8XChmJfQDZCODsDu5T5HXbhpnBWnCOIPiOrde5msHQCdEds9SXjIzLP8DaPmKWBcYUnStUbwwaA50oXzlZaiGOxYWw8OWu2bPpzStxnJBwJ1CcAk/KL4DcPsXYzHeZhJTP4DVk2O3fcHo6f3PYeSWeUajUPtNd2kHp/hs4BJw+8x5+zN9U+0KB2xfNv0qgFd2YltKdYNFnRXJ1ztNg5rXw7ksXtmSu8NhwLF1VtHaXCiNQgF1Yt5IblT7IoteLeVu0F716T1t5x6rmZm8Aw9x2YlDUhVtc0kQNLuXNnx3AdJ34kp+PKHgHBrNgwiz2E6eEECiR0v/nANOiU43HfEUtp5s42mko3PdxsrYOS1hu8sPQ9iBXGhS83o7s1KWNhx0cY3JLFPUc7ghReJ72qHaFhLFDpkp46nEcO9O8NgUGVLJ9F6TFstBxHw+ghxC2Vq11RHKkfvaAobve+3iicduz9HLnycTzdWsqSk6u+e7zN1FBtu54v6m7y6tz0hDfZqLgf+kO2SqVC/4zYoIiqGK8tx4wGjc2PNctp77XFia1cYpXuqs2IR33vw8d0h4fcrj3zuOUGE9zWH9mPZnit4PfzrKvu4vU9c+1QBIarfTs4ONB5jXbMV0AZYdc/952zl0YrzRFzamjxOOyCsaa+tb4KAyKkm+5wJIvSKDa3c=
+    - secure: pS8/UTkMNf//o6k/DnU4KFp7Uz1wlX9NUZQX5sZewKp/vLcJ5VxpflMvo8dG2vbuVQHFOdWLhAPZTxuLo3xNtruCBFJXbOooe49SiZgQ9/Mw/SGU7iCoOtGchJlENz40Bw1JtsDQ6XZ0y9KoUIVWvl9nve/qAt/u2aYFTOfTpTtVcCVCpXc7bgEphTt8pvU6Gx9AaBmoXRXgGFYfrJrsFmoIXGDuYAidlYOa8nalB9YW7keMRnXbJ9WoUJM8nbZjA1472Mi1ZrRRuUSt0ABkgkBivP78GuXQL2PK4oqKZqIfW7JhhCCCD8GPUKx3OjS8IuoC3Z/hTuqFG/V7lkc3KHwqR1QIwj/U66uuPBN33dfNkDrh95zeLZy72EPgBk2a5+PmqlGucxv/lkz31DdhPIuIZMSljOaM1dVic6odGIBhK+RGirdny95neR1b7JmogS8hnahxpsv3RfBG63YNBd/c2ZOz+1VWkAjck6jMTVK94UGgS4iZNg6hMiQvqgwlacit6N9/qI6GxwAbeUqxsCWUD8MxhSbBbFArQWI3I55Y6EF/ZyGSrYwP2rKTRqOpxpjFRIFTfvogq909EIVAvYZX00WCeRVdEl0pvBJ/xN1uMDa/OEO6P2ZPaQfZF8Prde3iG+lvfVojHfEm9kb3mNHY4q6wf4LS4/lfOYaJ6hg=
 
 cache:
   directories:
@@ -38,7 +38,6 @@ script:
   - ./runPandoc.hs "${INPUT_FILE}" "${OUTPUT_FILE}"
 
 after_success:
-  - if [ "x${GH_TOKEN}" == "x" ]; then echo "NO TOKEN!!!!!"; fi
   - git config --global user.email "Travis CI"
   - git config --global user.name "travis-ci@travis.org"
   - git clone --quiet --branch=$GH_BRANCH https://${GH_TOKEN}@github.com/$GH_REPO travis-build > /dev/null
