@@ -46,7 +46,7 @@ The Solution
 
 ## We'll just have to strip all that metadata out!
 
-## {data-background="images/simples.jpg" data-background-size="auto 100%" data-background-color="white"}
+## {id="simples" data-background="images/simples.jpg" data-background-size="auto 100%" data-background-color="white"}
 
 ## You can't just _say_ "Simples"...
 
