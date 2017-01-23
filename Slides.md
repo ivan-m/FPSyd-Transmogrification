@@ -102,6 +102,37 @@ TRANSMOGRIFI-CATION!!! {data-background="images/new.jpg" data-background-size="a
 Bar {a = 3, b = 2, c = 'a'}
 ```
 
+## {id="it's alive" data-background="images/alive.jpg" data-background-color="black"}
+
+## But...
+
+. . .
+
+... it's a tad boring.
+
+## What about nested examples?
+
+> * Let's pretend there's no laziness.
+> * Then the following are isomorphic:
+>     - `('t', 'u', 'p', 'l', 'e')`{.haskell}
+>     - `(('t', 'u'), 'p', ('l', 'e'))`{.haskell}
+>     - `('t', ('u', ('p', ('l', ('e')))))`{.haskell}
+
+Notes
+:   * Can you tell I once did a bit of lisp?
+
+## How to deal with this?
+
+> * Recursively merge children product-types
+> * Canonicalise the representation
+> * Basically, convert everything into a lisp-style list:
+        `'t' :*: ('u' :*: ('p' :*: ('l' :*: ('e'))))`{.haskell}
+
+Notes
+:   * Also sum-types
+:   * Generics tries to be helpful and use semi-balanced trees... this
+      isn't documented and can be annoying.
+
 ---
 # reveal.js settings
 theme: night
