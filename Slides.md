@@ -154,9 +154,46 @@ Notes
 So, everyone should use this, right?
 ====================================
 
+## There's no type inference or safety... {data-background="images/no-inference.gif" data-background-size="auto 100%" data-background-color="white"}
+
+Notes
+:   * Even worse inference than `read`, as you have to hope they line
+      up
+    * There's also `O(n)` performance, but you'd expect that.
+    * But worst of all...
+
+## How do you stop recursing?
+
 . . .
 
-There's just these _slight_ problems...
+```haskell
+type family CanRecurse a :: Bool where
+  CanRecurse Int     = 'False
+  CanRecurse Int8    = 'False
+  CanRecurse Int16   = 'False
+  CanRecurse Int32   = 'False
+  CanRecurse Int64   = 'False
+  CanRecurse Integer = 'False
+  -- Snip other numeric types
+  CanRecurse Char    = 'False
+  CanRecurse a       = 'True
+```
+
+Notes
+:   * Non-extensible :(
+    * Required because we need to determine this at the type-level,
+      and there's no `isInstanceOf` function.
+
+## So, ummm....
+
+> * If it was just the performance and type-inference, this would
+>     still be useful.
+> * But without extensibility, this isn't really viable.
+> * As such, this isn't on Hackage.
+> * So all I can say is...
+
+USE GENERICS {data-background="images/skills.jpg" data-background-size="auto 100%" data-background-color="white"}
+============
 
 ---
 # reveal.js settings
