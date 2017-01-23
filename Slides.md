@@ -133,6 +133,31 @@ Notes
 :   * Generics tries to be helpful and use semi-balanced trees... this
       isn't documented and can be annoying.
 
+## Witness the power! {data-background="images/fully-powered.png" data-background-color="black"}
+
+. . .
+
+
+```haskell
+λ> transmogrify
+     ('H', 'a', 's', 'k', 'e', 'l', 'l')
+     :: ((Char, Char)
+        , Char
+        , (Char, Char, (Char, Char)))
+(('H','a'),'s',('k','e',('l','l')))
+```
+
+Notes
+:   * Witness the power of this fully-powered transmogrifier!!!
+    * 7-tuples are the largest tuples with a Generics instance
+
+So, everyone should use this, right?
+====================================
+
+. . .
+
+There's just these _slight_ problems...
+
 ---
 # reveal.js settings
 theme: night
