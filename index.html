@@ -162,7 +162,120 @@ code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
 </section></section>
 <section><section id="transmogrifi-cation" class="titleslide slide level1" data-background="images/new.jpg" data-background-size="auto 100%" data-background-color="white"><h1>TRANSMOGRIFI-CATION!!!</h1></section><section id="example" class="slide level2">
 <h2>Example</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">λ<span class="fu">&gt;</span> <span class="kw">data</span> <span class="dt">Foo</span> a c <span class="fu">=</span> <span class="dt">Foo</span> a <span class="dt">Int</span> c
+     <span class="kw">deriving</span> (<span class="dt">Show</span>, <span class="dt">Generic</span>)
+λ<span class="fu">&gt;</span> <span class="kw">data</span> <span class="dt">Bar</span> b <span class="fu">=</span> <span class="dt">Bar</span> {<span class="ot"> a ::</span> <span class="dt">Word</span>
+                    ,<span class="ot"> b ::</span> b
+                    ,<span class="ot"> c ::</span> <span class="dt">Char</span>
+                    }
+     <span class="kw">deriving</span> (<span class="dt">Show</span>, <span class="dt">Generic</span>)
+λ<span class="fu">&gt;</span> transmogrify (<span class="dt">Foo</span> (<span class="dv">3</span><span class="ot"> ::</span> <span class="dt">Word</span>) <span class="dv">2</span> <span class="ch">&#39;a&#39;</span>)
+<span class="ot">     ::</span> <span class="dt">Bar</span> <span class="dt">Int</span>
+<span class="dt">Bar</span> {a <span class="fu">=</span> <span class="dv">3</span>, b <span class="fu">=</span> <span class="dv">2</span>, c <span class="fu">=</span> <span class="ch">&#39;a&#39;</span>}</code></pre></div>
+</section><section id="it&#39;s alive" class="slide level2" data-background="images/alive.jpg" data-background-color="black">
+<h2></h2>
+</section><section id="but" class="slide level2">
+<h2>But…</h2>
+<div class="fragment">
+<p>… it’s a tad boring.</p>
+</div>
+</section><section id="what-about-nested-examples" class="slide level2">
+<h2>What about nested examples?</h2>
+<ul>
+<li class="fragment">Let’s pretend there’s no laziness.</li>
+<li class="fragment">Then the following are isomorphic:
+<ul>
+<li class="fragment"><code class="sourceCode haskell">(<span class="ch">&#39;t&#39;</span>, <span class="ch">&#39;u&#39;</span>, <span class="ch">&#39;p&#39;</span>, <span class="ch">&#39;l&#39;</span>, <span class="ch">&#39;e&#39;</span>)</code></li>
+<li class="fragment"><code class="sourceCode haskell">((<span class="ch">&#39;t&#39;</span>, <span class="ch">&#39;u&#39;</span>), <span class="ch">&#39;p&#39;</span>, (<span class="ch">&#39;l&#39;</span>, <span class="ch">&#39;e&#39;</span>))</code></li>
+<li class="fragment"><code class="sourceCode haskell">(<span class="ch">&#39;t&#39;</span>, (<span class="ch">&#39;u&#39;</span>, (<span class="ch">&#39;p&#39;</span>, (<span class="ch">&#39;l&#39;</span>, (<span class="ch">&#39;e&#39;</span>)))))</code></li>
+</ul></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Can you tell I once did a bit of lisp?</li>
+</ul>
+</aside>
+<dl>
+</dl>
+</section><section id="how-to-deal-with-this" class="slide level2">
+<h2>How to deal with this?</h2>
+<ul>
+<li class="fragment">Recursively merge children product-types</li>
+<li class="fragment">Canonicalise the representation</li>
+<li class="fragment">Basically, convert everything into a lisp-style list: <code class="sourceCode haskell"><span class="ch">&#39;t&#39;</span> <span class="fu">:*:</span> (<span class="ch">&#39;u&#39;</span> <span class="fu">:*:</span> (<span class="ch">&#39;p&#39;</span> <span class="fu">:*:</span> (<span class="ch">&#39;l&#39;</span> <span class="fu">:*:</span> (<span class="ch">&#39;e&#39;</span>))))</code></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Also sum-types</li>
+</ul>
+<ul>
+<li>Generics tries to be helpful and use semi-balanced trees… this isn’t documented and can be annoying.</li>
+</ul>
+</aside>
+<dl>
+</dl>
+</section><section id="witness-the-power" class="slide level2" data-background="images/fully-powered.png" data-background-color="black">
+<h2>Witness the power!</h2>
+<div class="fragment">
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">λ<span class="fu">&gt;</span> transmogrify
+     (<span class="ch">&#39;H&#39;</span>, <span class="ch">&#39;a&#39;</span>, <span class="ch">&#39;s&#39;</span>, <span class="ch">&#39;k&#39;</span>, <span class="ch">&#39;e&#39;</span>, <span class="ch">&#39;l&#39;</span>, <span class="ch">&#39;l&#39;</span>)
+<span class="ot">     ::</span> ((<span class="dt">Char</span>, <span class="dt">Char</span>)
+        , <span class="dt">Char</span>
+        , (<span class="dt">Char</span>, <span class="dt">Char</span>, (<span class="dt">Char</span>, <span class="dt">Char</span>)))
+((<span class="ch">&#39;H&#39;</span>,<span class="ch">&#39;a&#39;</span>),<span class="ch">&#39;s&#39;</span>,(<span class="ch">&#39;k&#39;</span>,<span class="ch">&#39;e&#39;</span>,(<span class="ch">&#39;l&#39;</span>,<span class="ch">&#39;l&#39;</span>)))</code></pre></div>
+<aside class="notes">
+<ul>
+<li>Witness the power of this fully-powered transmogrifier!!!</li>
+<li>7-tuples are the largest tuples with a Generics instance</li>
+</ul>
+</aside>
+<dl>
+</dl>
+</div>
 </section></section>
+<section><section id="so-everyone-should-use-this-right" class="titleslide slide level1"><h1>So, everyone should use this, right?</h1></section><section id="theres-no-type-inference-or-safety" class="slide level2" data-background="images/no-inference.gif" data-background-size="auto 100%" data-background-color="white">
+<h2>There’s no type inference or safety…</h2>
+<aside class="notes">
+<ul>
+<li>Even worse inference than <code>read</code>, as you have to hope they line up</li>
+<li>There’s also <code>O(n)</code> performance, but you’d expect that.</li>
+<li>But worst of all…</li>
+</ul>
+</aside>
+<dl>
+</dl>
+</section><section id="how-do-you-stop-recursing" class="slide level2">
+<h2>How do you stop recursing?</h2>
+<div class="fragment">
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> family <span class="dt">CanRecurse</span><span class="ot"> a ::</span> <span class="dt">Bool</span> <span class="kw">where</span>
+  <span class="dt">CanRecurse</span> <span class="dt">Int</span>     <span class="fu">=</span> <span class="ch">&#39;False</span>
+  <span class="dt">CanRecurse</span> <span class="dt">Int8</span>    <span class="fu">=</span> <span class="ch">&#39;False</span>
+  <span class="dt">CanRecurse</span> <span class="dt">Int16</span>   <span class="fu">=</span> <span class="ch">&#39;False</span>
+  <span class="dt">CanRecurse</span> <span class="dt">Int32</span>   <span class="fu">=</span> <span class="ch">&#39;False</span>
+  <span class="dt">CanRecurse</span> <span class="dt">Int64</span>   <span class="fu">=</span> <span class="ch">&#39;False</span>
+  <span class="dt">CanRecurse</span> <span class="dt">Integer</span> <span class="fu">=</span> <span class="ch">&#39;False</span>
+  <span class="co">-- Snip other numeric types</span>
+  <span class="dt">CanRecurse</span> <span class="dt">Char</span>    <span class="fu">=</span> <span class="ch">&#39;False</span>
+  <span class="dt">CanRecurse</span> a       <span class="fu">=</span> <span class="ch">&#39;True</span></code></pre></div>
+<aside class="notes">
+<ul>
+<li>Non-extensible :(</li>
+<li>Required because we need to determine this at the type-level, and there’s no <code>isInstanceOf</code> function.</li>
+</ul>
+</aside>
+<dl>
+</dl>
+</div>
+</section><section id="so-ummm." class="slide level2">
+<h2>So, ummm….</h2>
+<ul>
+<li class="fragment">If it was just the performance and type-inference, this would still be useful.</li>
+<li class="fragment">But without extensibility, this isn’t really viable.</li>
+<li class="fragment">As such, this isn’t on Hackage.</li>
+<li class="fragment">So all I can say is…</li>
+</ul>
+</section></section>
+<section><section id="use-generics" class="titleslide slide level1" data-background="images/skills.jpg" data-background-size="auto 100%" data-background-color="white"><h1>USE GENERICS</h1></section></section>
     </div>
   </div>
 
