@@ -89,6 +89,18 @@ TRANSMOGRIFI-CATION!!! {data-background="images/new.jpg" data-background-size="a
 
 ## Example
 
+```haskell
+λ> data Foo a c = Foo a Int c
+     deriving (Show, Generic)
+λ> data Bar b = Bar { a :: Word
+                    , b :: b
+                    , c :: Char
+                    }
+     deriving (Show, Generic)
+λ> transmogrify (Foo (3 :: Word) 2 'a')
+     :: Bar Int
+Bar {a = 3, b = 2, c = 'a'}
+```
 
 ---
 # reveal.js settings
