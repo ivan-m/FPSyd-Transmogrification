@@ -154,6 +154,33 @@ Notes
 So, everyone should use this, right?
 ====================================
 
+## Let's consider the types...
+
+. . .
+
+```haskell
+transmogrify :: (SameShape a b) => a -> b
+```
+
+. . .
+
+```haskell
+λ> :type transmogrify
+transmogrify
+  :: (Raw' a (CanRecurse a)
+        ~ Raw' b (CanRecurse b)
+     , RawShape' b (CanRecurse b)
+     , RawShape' a (CanRecurse a)) =>
+     a -> b
+```
+
+Notes
+:   * It just gets worse from here
+    * Uses `class Foo a; instance Foo a` idiom, hence the expanded
+      type
+    * Pretty ugly to work out what stuff is.
+    * Will soon see where `CanRecurse` comes from.
+
 ## There's no type inference or safety... {data-background="images/no-inference.gif" data-background-size="auto 100%" data-background-color="white"}
 
 Notes
